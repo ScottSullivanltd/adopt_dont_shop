@@ -35,7 +35,7 @@ RSpec.describe "pet adoption application creation", type: :feature do
       click_button "Submit"
 
       application = Application.last
-      save_and_open_page
+
       expect(current_path).to eq("/applications/#{application.id}")
       expect(page).to have_content("John Smith")
       expect(page).to have_content("In Progress")
