@@ -7,6 +7,12 @@ RSpec.describe Application, type: :model do
   end
 
   describe "validations" do
-    it { should define_enum_for(:status).with(["In Progress", "Pending", "Approved", "Rejected"]) }
+    it { should define_enum_for(:status).with_values(["In Progress", "Pending", "Approved", "Rejected"]) }
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:street_address) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:state) }
+    it { should validate_presence_of(:zipcode) }
+    it { should validate_numericality_of(:zipcode) }
   end
 end
