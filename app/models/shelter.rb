@@ -33,7 +33,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.reverse_alpha
-    order(name: :desc)
-    #find_by_sql(SELECT * FROM shelters ORDER name DESC)
+    find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
   end
 end
