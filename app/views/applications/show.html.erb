@@ -10,15 +10,30 @@
 <div>
   <h3>Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@application.id}?search=search", method: :get, local: true do |f| %>
-    <%= f.label :search, "Pet Name:" %>
+    <p><%= f.label :search, "Pet Name:" %>
     <%= f.text_field :search %>
-    <%= f.submit "Search" %>
+    <%= f.submit "Search" %></p>
+  <% end %>
+
+  <% if @pets.present? %>
+    <table>
+      <% @pets.each do |pet| %>
+        <div id="pet-<%= pet.id %>">
+          <tr>
+            <td><strong><%= link_to pet.name, "/pets/#{pet.id}" %></strong></td>
+            <td><strong><%= button_to "Adopt this Pet", "/pet_applications", params: {pet_id: pet.id, application_id: @application.id} %></strong></td>
+          </tr>
+        </div>
+      <% end %>
+    </table>
   <% end %>
 
   <h4>Pets in Application:</h4>
-  <% if @pets.present? %>
-    <% @pets.each do |pet| %>
-      <p><h4><%= pet.name %></h4></p>
+  <% if @application_pets.present? %>
+    <% @application_pets.each do |pet| %>
+      <p><h4><%= pet.name %></h4>
+      <p>Age: <%= pet.age %></p>
+      Breed: <%= pet.breed %>
     <% end %>
   <% end %>
 </div>
