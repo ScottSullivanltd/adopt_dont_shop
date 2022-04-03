@@ -1,19 +1,19 @@
 <h1>Pet Adoption Application</h1>
 <%= form_with url: "/applications", method: :post, local: true do |f| %>
   <p><%= f.label :name %>
-  <%= f.text_field :name %></p>
+  <%= f.text_field :name, required: true %></p>
 
   <p><%= f.label :street_address, 'Street Address' %>
-  <%= f.text_field :street_address %></p>
+  <%= f.text_field :street_address, required: true %></p>
 
   <p><%= f.label :city %>
-  <%= f.text_field :city %></p>
+  <%= f.text_field :city, required: true %></p>
 
   <p><%= f.label :state %>
-  <%= f.text_field :state %></p>
+  <%= f.text_field :state, required: true %></p>
 
   <p><%= f.label :zipcode, 'Zip Code' %>
-  <%= f.number_field :zipcode %></p>
+  <%= f.number_field :zipcode, required: true %></p>
 
   <%= f.submit 'Submit'%>
 <% end %>

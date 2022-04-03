@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "pet adoption application creation", type: :feature do
+RSpec.describe "new pet adoption application creation", type: :feature do
   describe "new application" do
     it "has Start an Application link on pet index page" do
       visit "/pets"
@@ -40,5 +40,19 @@ RSpec.describe "pet adoption application creation", type: :feature do
       expect(page).to have_content("John Smith")
       expect(page).to have_content("In Progress")
     end
+  end
+
+  it "does not create a new adoption application if any form fields are left blank" do
+    visit "/applications/new"
+
+    fill_in "Name", with: "John Smith"
+    fill_in "Street Address", with: "321 Main St"
+    fill_in "City", with: "Littleton"
+    fill_in "Zip Code", with: 80333
+    click_button "Submit"
+
+    expect(current_path).to eq("/applications")
+    expect(page).to have_content("Required Information missing, must complete all form fields.")
+    expect(page).to have_button("Submit")
   end
 end
