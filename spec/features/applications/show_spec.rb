@@ -21,7 +21,7 @@ RSpec.describe "show new pet adoption application", type: :feature do
 
     fill_in "Pet Name:", with: "Babe"
     click_on("Search")
-    save_and_open_page
+
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_1.name)
     expect(page).to_not have_content(pet_3.name)
