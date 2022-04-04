@@ -47,6 +47,12 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+
+    describe '#pending_applications' do
+      it 'returns applications with pending status' do
+        expect(Shelter.reverse_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
   end
 
   describe 'instance methods' do
