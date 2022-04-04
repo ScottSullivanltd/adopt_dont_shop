@@ -17,6 +17,10 @@ class ApplicationsController < ApplicationController
     if params[:search].present?
       @pets = Pet.search(params[:search])
     end
+
+    unless @application.pets.empty?
+      @application_pets = @application.pets
+    end
   end
 
   private
