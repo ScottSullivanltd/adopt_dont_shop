@@ -104,7 +104,7 @@ RSpec.describe "show new pet adoption application", type: :feature do
     fill_in "Why I Would Make a Good Pet Owner:", with: "I love animals"
 
     click_button("Submit Adoption Application")
-    save_and_open_page
+
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_2.name)
     expect(page).to have_content(pet_2.age)
