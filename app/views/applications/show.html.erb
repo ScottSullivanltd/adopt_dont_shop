@@ -5,8 +5,6 @@
 <%= @application.state %>
 <%= @application.zipcode %>
 
-<p><h3>Application Status: <%= @application.status %></h3></p>
-
 <div>
   <h3>Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@application.id}?search=search", method: :get, local: true do |f| %>
@@ -38,6 +36,12 @@
       Breed: <%= pet.breed %>
     <% end %>
     <p><strong>Submit Adoption Application</strong></p>
-    <%= form_with url: %>
+    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+      <%= f.label :description, "Why I Would Make a Good Pet Owner:" %>
+      <%= f.textarea :description %>
+      <%= f.submit "Submit Adoption Application" %>
+    <% end %>
   <% end %>
 </div>
+
+<p><h3>Application Status: <%= @application.status %></h3></p>
