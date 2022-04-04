@@ -35,10 +35,10 @@
       <p>Age: <%= pet.age %></p>
       Breed: <%= pet.breed %>
     <% end %>
-    <p><strong>Submit Adoption Application</strong></p>
-    <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
-      <%= f.label :description, "Why I Would Make a Good Pet Owner:" %>
-      <%= f.textarea :description %>
+    <p><h3>Submit Adoption Application</h3></p>
+    <%= form_with url: "/applications/#{@application.id}?description=description", method: :get, local: true do |f| %>
+      <p><%= f.label :description, "Why I Would Make a Good Pet Owner:" %></p>
+      <p><%= f.text_area :description %></p>
       <%= f.submit "Submit Adoption Application" %>
     <% end %>
   <% end %>
