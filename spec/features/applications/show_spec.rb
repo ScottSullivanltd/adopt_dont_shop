@@ -40,7 +40,7 @@ RSpec.describe "show new pet adoption application", type: :feature do
     click_button("Search")
 
     click_button("Adopt this Pet")
-    save_and_open_page
+
     expect(page).to have_current_path("/applications/#{application.id}")
     expect(page).to have_content(pet_2.name)
     expect(page).to_not have_content(pet_1.name)
