@@ -27,7 +27,9 @@
       <% end %>
     </table>
   <% end %>
+</div>
 
+<div>
   <h4>Pets in Application:</h4>
   <% if @application_pets.present? %>
     <% @application_pets.each do |pet| %>
@@ -35,5 +37,7 @@
       <p>Age: <%= pet.age %></p>
       Breed: <%= pet.breed %>
     <% end %>
+    <p><strong>Submit Adoption Application</strong></p>
+    <%= form_with url: %>
   <% end %>
 </div>
