@@ -1,8 +1,13 @@
-<div id="header">
-  <h1>Shelters in reverse alphabetical order</h1>
-</div>
+<h3>Shelters in reverse alphabetical order</h3>
 <div id="admin-shelters">
 <% @shelters.reverse_alpha.each do |shelter| %>
     <p><%= shelter.name %></p>
 <% end %>
+</div>
+
+<h3>Shelters with pending applications</h3>
+<div id="pending-apps">
+  <% @pending_apps.each do |shelter| %>
+    <%= shelter.name %>
+  <% end %>
 </div>

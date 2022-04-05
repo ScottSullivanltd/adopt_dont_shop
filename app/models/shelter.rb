@@ -35,4 +35,8 @@ class Shelter < ApplicationRecord
   def self.reverse_alpha
     find_by_sql("SELECT * FROM shelters ORDER BY name DESC")
   end
+
+  def self.pending_applications
+    joins(pets: :applications).where(applications: {:status => 1})
+  end
 end
