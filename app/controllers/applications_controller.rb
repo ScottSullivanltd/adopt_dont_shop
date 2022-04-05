@@ -21,15 +21,16 @@ class ApplicationsController < ApplicationController
     unless @application.pets.empty?
       @application_pets = @application.pets
     end
+  end
 
-    if params[:description].present?
-      @application.status = 1
-    end
+  def update
+    Application.update(params[:id], application_params)
+    redirect_to "/applications/#{params[:id]}"
   end
 
   private
 
   def application_params
-    params.permit(:name, :street_address, :city, :state, :zipcode)
+    params.permit(:description, :status, :name, :street_address, :city, :state, :zipcode)
   end
 end

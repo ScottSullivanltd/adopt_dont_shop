@@ -6,11 +6,13 @@
 <%= @application.zipcode %>
 
 <div>
-  <h3>Add a Pet to this Application</h3>
-  <%= form_with url: "/applications/#{@application.id}?search=search", method: :get, local: true do |f| %>
-    <p><%= f.label :search, "Pet Name:" %>
-    <%= f.text_field :search %>
-    <%= f.submit "Search" %></p>
+  <% unless @application.status == "Pending" %>
+    <h3>Add a Pet to this Application</h3>
+    <%= form_with url: "/applications/#{@application.id}?search=search", method: :get, local: true do |f| %>
+      <p><%= f.label :search, "Pet Name:" %>
+      <%= f.text_field :search %>
+      <%= f.submit "Search" %></p>
+    <% end %>
   <% end %>
 
   <% if @pets.present? %>
@@ -28,19 +30,29 @@
 </div>
 
 <div>
-  <h4>Pets in Application:</h4>
   <% if @application_pets.present? %>
+    <h3>Pets in Application:</h3>
     <% @application_pets.each do |pet| %>
-      <p><h4><%= pet.name %></h4>
+      <p><h4><%= link_to pet.name, "/pets/#{pet.id}" %></h4>
       <p>Age: <%= pet.age %></p>
       Breed: <%= pet.breed %>
     <% end %>
-    <p><h3>Submit Adoption Application</h3></p>
-    <%= form_with url: "/applications/#{@application.id}?description=description", method: :get, local: true do |f| %>
-      <p><%= f.label :description, "Why I Would Make a Good Pet Owner:" %></p>
-      <p><%= f.text_area :description %></p>
-      <%= f.submit "Submit Adoption Application" %>
+    <% unless @application.status == "Pending" %>
+      <p><h3>Submit Adoption Application</h3></p>
+      <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
+        <p><%= f.label :description, "Why I Would Make a Good Pet Owner:" %></p>
+        <p><%= f.text_area :description %></p>
+        <%= f.hidden_field :status, value: "Pending" %>
+        <%= f.submit "Submit Adoption Application" %>
+      <% end %>
     <% end %>
+  <% end %>
+</div>
+
+<div>
+  <% if @application.status == "Pending" %>
+    <p><h3>I would make a good pet owner because:</h3></p>
+    <%= @application.description %>
   <% end %>
 </div>
 
