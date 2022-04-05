@@ -21,6 +21,10 @@ class ApplicationsController < ApplicationController
     unless @application.pets.empty?
       @application_pets = @application.pets
     end
+
+    if params[:description].present?
+      @application.status = 1
+    end
   end
 
   private
