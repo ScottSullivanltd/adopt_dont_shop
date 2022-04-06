@@ -6,9 +6,12 @@ Rails.application.routes.draw do
   post "/applications", to: "applications#create"
   patch "/applications/:id", to: "applications#update"
 
-  namespace :admin do
-    resources :shelters, only: [:index]
-  end
+  get "/admin/applications/:id", to: "admin_applications#show"
+  patch "/admin/applications/:id/:pet_id", to: "admin_applications#update"
+
+  get "/admin/shelters", to: "admin_shelters#index"
+
+  post "/pet_applications", to: "pet_applications#create"
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
@@ -45,6 +48,4 @@ Rails.application.routes.draw do
   get "/veterinary_offices/:veterinary_office_id/veterinarians", to: "veterinary_offices#veterinarians"
   get "/veterinary_offices/:veterinary_office_id/veterinarians/new", to: "veterinarians#new"
   post "/veterinary_offices/:veterinary_office_id/veterinarians", to: "veterinarians#create"
-
-  post "/pet_applications", to: "pet_applications#create"
 end

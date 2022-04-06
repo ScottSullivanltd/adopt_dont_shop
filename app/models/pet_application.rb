@@ -2,5 +2,5 @@ class PetApplication < ApplicationRecord
   belongs_to :pet
   belongs_to :application
 
-  enum status: {"In Progress" => 0, "Pending" => 1, "Approved" => 2, "Rejected" => 3}
+  enum status: {"Pending" => 0, "Approved" => 1, "Rejected" => 2}
 end
