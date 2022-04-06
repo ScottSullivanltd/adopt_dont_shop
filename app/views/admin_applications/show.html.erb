@@ -1,11 +1,18 @@
 <h2><%= @application.name %>'s Application</h2>
   <table>
-<% @application.pets.each do |pet| %>
-  <div id="pet-<%= pet.id %>">
-    <tr>
-      <td><p><%= pet.name %></p></td>
-      <td><%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}?approve=pet" %></td>
-    </tr>
+<% @application.pet_applications.each do |pet_app| %>
+  <div id="pet-<%= pet_app.pet.id %>">
+    <% if pet_app.status == "Pending" %>
+        <tr>
+          <td><p><%= pet_app.pet.name %></p></td>
+          <td><%= button_to "Approve #{pet_app.pet.name}", "/admin/applications/#{@application.id}/#{pet_app.pet.id}?approve=2", method: :patch %></td>
+          <td><%= button_to "Reject #{pet_app.pet.name}", "/admin/applications/#{@application.id}/#{pet_app.pet.id}?reject=3", method: :patch %></td>
+        </tr>
+    <% elsif pet_app.status == "Approved" %>
+      <p><%= pet_app.pet.name %> has been approved</p>
+    <% elsif pet_app.status == "Rejected" %>
+      <p><%= pet_app.pet.name %> has been rejected</p>
+    <% end %>
   </div>
 <% end %>
   </table>
