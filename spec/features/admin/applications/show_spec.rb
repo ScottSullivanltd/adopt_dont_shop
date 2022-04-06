@@ -13,6 +13,7 @@ RSpec.describe "the admins application show" do
 
     @application_pet = PetApplication.create!(pet_id: @pet1.id, application_id: @application1.id)
     @application_pet = PetApplication.create!(pet_id: @pet2.id, application_id: @application1.id)
+    @application_pet = PetApplication.create!(pet_id: @pet2.id, application_id: @application2.id)
 
     visit "/admin/applications/#{@application1.id}"
   end
@@ -53,6 +54,16 @@ RSpec.describe "the admins application show" do
       expect(current_path).to eq("/admin/applications/#{@application1.id}")
       expect(page).to_not have_button("Reject #{@pet2.name}")
       expect(page).to have_content("#{@pet2.name} has been rejected")
+    end
+  end
+  it "has button on other application still" do
+    within("#pet-#{@pet2.id}") do
+      click_button "Approve #{@pet2.name}"
+      expect(page).to_not have_button("Approve #{@pet2.name}")
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
+      visit "/admin/applications/#{@application2.id}"
+      expect(current_path).to eq("/admin/applications/#{@application2.id}")
+      expect(page).to have_button("Approve #{@pet2.name}")
     end
   end
 end
