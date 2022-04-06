@@ -18,10 +18,4 @@ class AdminApplicationsController < ApplicationController
     #@pet_application.save
     redirect_to "/admin/applications/#{@application.id}"
   end
-
-  private
-
-  def application_params
-    params.permit(:status, :description, :name, :street_address, :city, :state, :zipcode)
-  end
 end
