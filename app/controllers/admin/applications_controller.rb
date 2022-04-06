@@ -4,7 +4,8 @@ class Admin::ApplicationsController < ApplicationController
   end
 
   def update
-    Application.update(application_params)
+    Application.update(params[:id], application_params)
+
     redirect_to "/admin/applications/#{params[:id]}"
   end
 
