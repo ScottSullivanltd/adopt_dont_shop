@@ -4,7 +4,7 @@
   <div id="pet-<%= pet.id %>">
     <tr>
       <td><p><%= pet.name %></p></td>
-      <td><%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}", method: :patch, local: true %></td>
+      <td><%= button_to "Approve #{pet.name}", "/admin/applications/#{@application.id}?approve=pet" %></td>
     </tr>
   </div>
 <% end %>

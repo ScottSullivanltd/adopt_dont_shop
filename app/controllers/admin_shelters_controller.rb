@@ -1,4 +1,4 @@
-class Admin::SheltersController < ApplicationController
+class AdminSheltersController < ApplicationController
   def index
     @shelters = Shelter.all
     @pending_apps = Shelter.pending_applications

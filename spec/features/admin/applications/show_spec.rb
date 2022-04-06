@@ -1,10 +1,9 @@
-
 require "rails_helper"
 
 RSpec.describe "the admins application show" do
   before :each do
-    @shelter1 = Shelter.create!(name: "Pabus shelter", foster_program: true, city: "Erie", rank: 1, )
-    @shelter2 = Shelter.create!(name: "Lokis shelter", foster_program: true, city: "Denver", rank: 2)
+    @shelter1 = Shelter.create!(name: "Pabus Shelter", foster_program: true, city: "Erie", rank: 1)
+    @shelter2 = Shelter.create!(name: "Lokis Shelter", foster_program: true, city: "Denver", rank: 2)
 
     @pet1 = @shelter1.pets.create!(adoptable: true, age: 3, breed: "domestic pig", name: "Loki", shelter_id: @shelter1.id)
     @pet2 = @shelter1.pets.create!(adoptable: true, age: 3, breed: "domestic pig", name: "Pabu", shelter_id: @shelter2.id)
@@ -30,15 +29,14 @@ RSpec.describe "the admins application show" do
   end
   it "has button to approve application for pet" do
     within("#pet-#{@pet1.id}") do
-      save_and_open_page
       click_button "Approve #{@pet1.name}"
-      expect(page).to have_current_path("/admin/applications/#{@application1.id}")
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
       expect(page).to_not have_button("Approve #{@pet1.name}")
       expect(page).to have_content("#{@pet1.name} has been approved")
     end
     within("#pet-#{@pet2.id}") do
       click_button "Approve #{@pet2.name}"
-      expect(page).to have_current_path("a/dmin/applications/#{@application1.id}")
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
       expect(page).to_not have_button("Approve #{@pet2.name}")
       expect(page).to have_content("#{@pet2.name} has been approved")
     end

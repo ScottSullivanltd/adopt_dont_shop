@@ -6,13 +6,12 @@ Rails.application.routes.draw do
   post "/applications", to: "applications#create"
   patch "/applications/:id", to: "applications#update"
 
-  namespace :admin do
-    resources :shelters, only: [:index]
-    resources :applications, only: [:show, :update]
-  end
+  get "/admin/applications/:id", to: "admin_applications#show"
+  post "/admin/applications/:id", to: "admin_applications#update"
+
+  get "/admin/shelters", to: "admin_shelters#index"
 
   post "/pet_applications", to: "pet_applications#create"
-
 
   get "/shelters", to: "shelters#index"
   get "/shelters/new", to: "shelters#new"
