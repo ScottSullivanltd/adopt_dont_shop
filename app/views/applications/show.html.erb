@@ -1,11 +1,13 @@
 <br>
-<p><h2><%= @application.name %></h2></p>
-<p><%= @application.street_address %></p>
-<%= @application.city %>
-<%= @application.state %>
-<%= @application.zipcode %>
+<div id="applicant">
+  <p><h2><%= @application.name %></h2></p>
+  <p><%= @application.street_address %></p>
+  <%= @application.city %>
+  <%= @application.state %>
+  <%= @application.zipcode %>
+</div>
 
-<div>
+<div id="add_pets">
   <% unless @application.status == "Pending" %>
     <h3>Add a Pet to this Application</h3>
     <%= form_with url: "/applications/#{@application.id}?search=search", method: :get, local: true do |f| %>
@@ -29,7 +31,7 @@
   <% end %>
 </div>
 
-<div>
+<div id="adopt_pets">
   <% if @application_pets.present? %>
     <h3>Pets in Application:</h3>
     <% @application_pets.each do |pet| %>
@@ -49,11 +51,11 @@
   <% end %>
 </div>
 
-<div>
+<div id="submit">
   <% if @application.status == "Pending" %>
     <p><h3>I would make a good pet owner because:</h3></p>
     <%= @application.description %>
   <% end %>
-</div>
 
 <p><h3>Application Status: <%= @application.status %></h3></p>
+</div>

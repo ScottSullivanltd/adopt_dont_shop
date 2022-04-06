@@ -15,11 +15,13 @@ RSpec.describe "new pet adoption application creation", type: :feature do
       visit "/applications/new"
 
       expect(page).to have_content("Pet Adoption Application")
-      expect(find("form")).to have_content("Name")
-      expect(find("form")).to have_content("Street Address")
-      expect(find("form")).to have_content("City")
-      expect(find("form")).to have_content("State")
-      expect(find("form")).to have_content("Zip Code")
+      within "#application" do
+        expect(find("form")).to have_content("Name")
+        expect(find("form")).to have_content("Street Address")
+        expect(find("form")).to have_content("City")
+        expect(find("form")).to have_content("State")
+        expect(find("form")).to have_content("Zip Code")
+      end
     end
   end
 

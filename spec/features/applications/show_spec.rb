@@ -6,8 +6,10 @@ RSpec.describe "show new pet adoption application", type: :feature do
 
     visit "/applications/#{application.id}"
 
-    expect(page).to have_content("Add a Pet to this Application")
-    expect(page).to have_button("Search")
+    within "#add_pets" do
+      expect(page).to have_content("Add a Pet to this Application")
+      expect(page).to have_button("Search")
+    end
   end
 
   it "returns matched search results" do
@@ -22,9 +24,11 @@ RSpec.describe "show new pet adoption application", type: :feature do
     fill_in "Pet Name:", with: "Babe"
     click_on("Search")
 
-    expect(page).to have_content(pet_2.name)
-    expect(page).to_not have_content(pet_1.name)
-    expect(page).to_not have_content(pet_3.name)
+    within "#add_pets" do
+      expect(page).to have_content(pet_2.name)
+      expect(page).to_not have_content(pet_1.name)
+      expect(page).to_not have_content(pet_3.name)
+    end
   end
 
   it "returns partially matched search results" do
@@ -39,9 +43,11 @@ RSpec.describe "show new pet adoption application", type: :feature do
     fill_in "Pet Name:", with: "Ba"
     click_on("Search")
 
-    expect(page).to have_content(pet_1.name)
-    expect(page).to have_content(pet_2.name)
-    expect(page).to_not have_content(pet_3.name)
+    within "#add_pets" do
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to_not have_content(pet_3.name)
+    end
   end
 
   it "returns case insensitive matched search results" do
@@ -56,9 +62,11 @@ RSpec.describe "show new pet adoption application", type: :feature do
     fill_in "Pet Name:", with: "ba"
     click_on("Search")
 
-    expect(page).to have_content(pet_1.name)
-    expect(page).to have_content(pet_2.name)
-    expect(page).to_not have_content(pet_3.name)
+    within "#add_pets" do
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_2.name)
+      expect(page).to_not have_content(pet_3.name)
+    end
   end
 
   it "adds a pet to the application" do
@@ -75,16 +83,18 @@ RSpec.describe "show new pet adoption application", type: :feature do
 
     click_button("Adopt this Pet")
 
-    expect(page).to have_current_path("/applications/#{application.id}")
-    expect(page).to have_content(pet_2.name)
-    expect(page).to have_content(pet_2.age)
-    expect(page).to have_content(pet_2.breed)
-    expect(page).to_not have_content(pet_1.name)
-    expect(page).to_not have_content(pet_1.age)
-    expect(page).to_not have_content(pet_1.breed)
-    expect(page).to_not have_content(pet_3.name)
-    expect(page).to_not have_content(pet_3.age)
-    expect(page).to_not have_content(pet_3.breed)
+    within "#adopt_pets" do
+      expect(page).to have_current_path("/applications/#{application.id}")
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_2.age)
+      expect(page).to have_content(pet_2.breed)
+      expect(page).to_not have_content(pet_1.name)
+      expect(page).to_not have_content(pet_1.age)
+      expect(page).to_not have_content(pet_1.breed)
+      expect(page).to_not have_content(pet_3.name)
+      expect(page).to_not have_content(pet_3.age)
+      expect(page).to_not have_content(pet_3.breed)
+    end
   end
 
   it "submits the application" do
@@ -105,12 +115,16 @@ RSpec.describe "show new pet adoption application", type: :feature do
 
     click_button("Submit Adoption Application")
 
-    expect(current_path).to eq("/applications/#{application.id}")
-    expect(page).to have_content(pet_2.name)
-    expect(page).to have_content(pet_2.age)
-    expect(page).to have_content(pet_2.breed)
-    expect(page).to have_content("Pending")
-    expect(page).to_not have_content("Adopt this Pet")
+    within "#adopt_pets" do
+      expect(current_path).to eq("/applications/#{application.id}")
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_2.age)
+      expect(page).to have_content(pet_2.breed)
+    end
+    within "#submit" do
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Adopt this Pet")
+    end
   end
 
   it "shows a completed application with no text fields or buttons" do
@@ -132,18 +146,24 @@ RSpec.describe "show new pet adoption application", type: :feature do
     click_button("Submit Adoption Application")
 
     expect(current_path).to eq("/applications/#{application.id}")
-    expect(page).to have_content("John Smith")
-    expect(page).to have_content("321 Main St")
-    expect(page).to have_content("Denver")
-    expect(page).to have_content("CO")
-    expect(page).to have_content(80222)
-    expect(page).to have_content("I love animals")
-    expect(page).to have_content(pet_2.name)
-    expect(page).to have_content(pet_2.age)
-    expect(page).to have_content(pet_2.breed)
-    expect(page).to have_content("Pending")
-    expect(page).to_not have_content("Search")
-    expect(page).to_not have_content("Adopt this Pet")
-    expect(page).to_not have_content("Submit Adoption Application")
+    within "#applicant" do
+      expect(page).to have_content("John Smith")
+      expect(page).to have_content("321 Main St")
+      expect(page).to have_content("Denver")
+      expect(page).to have_content("CO")
+      expect(page).to have_content(80222)
+    end
+    within "#adopt_pets" do
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_2.age)
+      expect(page).to have_content(pet_2.breed)
+    end
+    within "#submit" do
+      expect(page).to have_content("I love animals")
+      expect(page).to have_content("Pending")
+      expect(page).to_not have_content("Search")
+      expect(page).to_not have_content("Adopt this Pet")
+      expect(page).to_not have_content("Submit Adoption Application")
+    end
   end
 end

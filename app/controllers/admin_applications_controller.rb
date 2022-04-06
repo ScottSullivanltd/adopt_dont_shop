@@ -2,7 +2,6 @@ class AdminApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
     @application_pets = @application.pet_applications
-    # @pets = @application.pets
   end
 
   def update
@@ -15,7 +14,6 @@ class AdminApplicationsController < ApplicationController
       @pet_application = @application.pet_applications.where(pet_id: params[:pet_id], application_id: @application.id)
       @pet_application.update(status: "Rejected")
     end
-    #@pet_application.save
     redirect_to "/admin/applications/#{@application.id}"
   end
 end
