@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :shelters, only: [:index, :show]
+    resources :shelters, only: [:index]
+    resources :applications, only: [:show, :update]
   end
 
   post "/pet_applications", to: "pet_applications#create"

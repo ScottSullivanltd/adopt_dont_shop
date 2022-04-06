@@ -1,0 +1,11 @@
+<h2><%= @application.name %>'s Application</h2>
+  <table>
+<% @application.pets.each do |pet| %>
+  <div id="pet-<%= pet.id %>">
+    <tr>
+      <td><p><%= pet.name %></p></td>
+      <td><%= button_to "Approve #{pet.name}", "/admin/pet_applications", params: {pet_id: pet.id, application_id: @application.id} %></td>
+    </tr>
+  </div>
+<% end %>
+  </table>
