@@ -14,7 +14,7 @@ RSpec.describe "the admins application show" do
     @application_pet = PetApplication.create!(pet_id: @pet1.id, application_id: @application1.id)
     @application_pet = PetApplication.create!(pet_id: @pet2.id, application_id: @application1.id)
 
-    visit "admin/applications/#{@application1.id}"
+    visit "/admin/applications/#{@application1.id}"
   end
   it "has header" do
     expect(page).to have_content("#{@application1.name}'s Application")
@@ -39,6 +39,20 @@ RSpec.describe "the admins application show" do
       expect(current_path).to eq("/admin/applications/#{@application1.id}")
       expect(page).to_not have_button("Approve #{@pet2.name}")
       expect(page).to have_content("#{@pet2.name} has been approved")
+    end
+  end
+  it "has button to reject application for pet" do
+    within("#pet-#{@pet1.id}") do
+      click_button "Reject #{@pet1.name}"
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
+      expect(page).to_not have_button("Reject #{@pet1.name}")
+      expect(page).to have_content("#{@pet1.name} has been rejected")
+    end
+    within("#pet-#{@pet2.id}") do
+      click_button "Reject #{@pet2.name}"
+      expect(current_path).to eq("/admin/applications/#{@application1.id}")
+      expect(page).to_not have_button("Reject #{@pet2.name}")
+      expect(page).to have_content("#{@pet2.name} has been rejected")
     end
   end
 end

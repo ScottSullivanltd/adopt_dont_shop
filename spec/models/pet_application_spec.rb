@@ -7,6 +7,6 @@ RSpec.describe PetApplication, type: :model do
   end
 
   describe "validations" do
-    it { should define_enum_for(:status).with_values(["In Progress", "Pending", "Approved", "Rejected"]) }
+    it { should define_enum_for(:status).with_values(["Pending", "Approved", "Rejected"]) }
   end
 end
