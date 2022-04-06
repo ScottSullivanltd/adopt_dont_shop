@@ -8,10 +8,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :shelters, only: [:index]
-  end
-
-  namespace :admin do
-    resources :shelters, only: [:index]
     resources :applications, only: [:show, :update]
   end
 
